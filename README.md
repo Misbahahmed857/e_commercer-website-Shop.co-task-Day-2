@@ -1,116 +1,113 @@
-Marketplace Technical Foundation - [Ecommerce]
-📌 Project Overview
+# Marketplace Builder Hackathon - Day 2
 
-The Marketplace Builder is a web application built using Next.js and integrated with Sanity CMS for managing products and orders. This application allows users to browse products, add them to the cart, and complete purchases securely via Stripe. It also integrates with ShipEngine for generating shipping labels and tracking orders.
-🌟 Features
+## Project Overview
 
-    Product Listing Page: Display products available for purchase.
-    Cart Page: Allow users to add products to their cart and view the total.
-    Checkout Page: Complete the purchase securely using Stripe.
-    Payment Integration with Stripe: Secure payment processing for orders.
-    Shipping Label Generation & Order Tracking via ShipEngine: Generate shipping labels and track orders.
-    Product & Order Management via Sanity CMS: Easily manage products and orders.
+This project forms the backbone of a dynamic and scalable e-commerce platform, developed as part of the **Marketplace Builder Hackathon 2025**. By leveraging cutting-edge technologies, the platform aims to deliver a smooth and engaging shopping experience for users.
 
-🏗️ System Architecture
-Frontend
+---
 
-    Built with Next.js to render pages and fetch data from APIs.
+## Features
 
-CMS
+### System Architecture
+- **Comprehensive Design**: A robust architecture connecting the frontend, backend, and external services.
+- **Interactive Workflows**: Detailed processes for seamless user interactions and system operations.
 
-    Sanity CMS is used to manage product and order data.
+### API Endpoints
+- Clear and structured documentation for API methods, payload requirements, and example responses.
 
-APIs
+### Sanity CMS Integration
+- Tailored schemas for managing essential data, including products, customers, and orders.
 
-    Products API: Fetch product data from Sanity CMS.
-    Shipping API: Generate and track shipping labels using ShipEngine.
-    Payments API: Process payments securely via Stripe.
+---
 
-Architecture Diagram
+## System Architecture Diagram
 
-[Frontend (Next.js)]
-    |
-[Sanity CMS] --> [Product Data API]
-    |
-[Third-Party API] --> [Shipment Tracking API]
-    |
-[Payment Gateway]
+### Components:
+1. **Frontend (Next.js)**: A responsive user interface with dynamic functionality.
+2. **Sanity CMS**: A powerful backend for organizing and managing data.
+3. **Third-Party Services**: Payment processing via Stripe and shipping/tracking integration.
 
-🛠️ Technical Requirements
-Frontend
-Next.js will be used to build the user interface with the following pages:
-Homepage
-Product Listing Page
-Cart Page
-Checkout Page
-CMS
-Sanity CMS will be used for managing products and orders.
-Define schemas for Products and Orders in Sanity.
-Third-Party APIs
-Payment Gateway: Integrate Stripe for secure payment processing.
-Shipping API: Use ShipEngine for order tracking and shipping label generation.
+### Workflow Overview:
+1. Users explore the platform, add products to their cart, and place orders via the frontend.
+2. The frontend retrieves and updates data stored in Sanity CMS.
+3. Payment and shipping details are securely managed through third-party APIs.
 
-📡 API Endpoints
-1️⃣ /api/products (GET)
-Fetches product data from Sanity CMS.
-Example Response:
+---
 
-[
-  {
-    "id": "1",
-    "name": "Product A",
-    "price": 100,
-    "description": "A great product."
-  }
-]
-2️⃣ /api/shipping-label (POST)
-Generates a shipping label using ShipEngine.
-Example Request:
+## API Endpoints
 
-{
-  "orderId": "12345",
-  "address": {
-    "line1": "123 Main St",
-    "city": "New York",
-    "state": "NY",
-    "zip": "10001"
-  }
-}
-3️⃣ /api/checkout (POST)
-Processes payments via Stripe.
-Example Request:
+| Endpoint      | Method | Purpose               | Payload                                | Response Example                              |
+|---------------|--------|-----------------------|----------------------------------------|----------------------------------------------|
+| `/products`   | GET    | Retrieve product list | N/A                                    | `{ "id": 1, "name": "Sofa", "price": 1000 }` |
+| `/cart`       | POST   | Add item to cart      | `{ "productId": 1, "quantity": 2 }` | `{ "cartId": 123, "status": "Added" }`      |
+| `/checkout`   | POST   | Finalize purchase     | `{ "cartId": 123, "paymentInfo": {...}}` | `{ "orderId": 456, "status": "Confirmed" }` |
 
-{
-  "amount": 200,
-  "currency": "USD",
-  "paymentMethodId": "pm_1GqIC8AHEMiO6EgC2LkU5bXE"
-}
-📝 Sanity Schema Documentation
+---
 
-1️⃣ Products Schema
+## Sanity CMS Schemas
 
+### Product Schema:
+```javascript
 export default {
-  name: "product",
-  type: "document",
-  title: "Product",
+  name: 'product',
+  type: 'document',
   fields: [
-    { name: "name", type: "string", title: "Product Name" },
-    { name: "price", type: "number", title: "Price" },
-    { name: "description", type: "text", title: "Description" },
-    { name: "image", type: "image", title: "Product Image" },
-    { name: "category", type: "string", title: "Category" }
+    { name: 'name', type: 'string', title: 'Product Name' },
+    { name: 'price', type: 'number', title: 'Price' },
+    { name: 'stock', type: 'number', title: 'Stock Level' },
+    { name: 'image', type: 'image', title: 'Product Image' }
   ]
 };
-2️⃣ Orders Schema
+```
 
+### Order Schema:
+```javascript
 export default {
-  name: "order",
-  type: "document",
-  title: "Order",
+  name: 'order',
+  type: 'document',
   fields: [
-    { name: "user", type: "string", title: "User" },
-    { name: "productIds", type: "array", of: [{ type: "reference", to: [{ type: "product" }] }] },
-    { name: "totalPrice", type: "number", title: "Total Price" },
-    { name: "status", type: "string", title: "Order Status" }
+    { name: 'customer', type: 'reference', to: [{ type: 'customer' }] },
+    { name: 'products', type: 'array', of: [{ type: 'product' }] },
+    { name: 'status', type: 'string', title: 'Order Status' }
   ]
 };
+```
+
+---
+
+## Workflows
+
+### User Journey
+
+1. **User Authentication:**
+   - New users can sign up or log in.
+   - User credentials are securely stored and managed in Sanity CMS.
+
+2. **Cart Operations:**
+   - Users can add products to their cart and update quantities.
+   - Cart data is processed through dedicated APIs.
+
+3. **Order Management:**
+   - Orders are created upon checkout and stored in the CMS.
+   - Payments are securely processed via Stripe.
+
+---
+
+## Repository
+
+The complete source code, along with diagrams and API references, is available here: [GitHub Repository](#).
+
+---
+
+## Next Steps
+
+- Build and test the documented workflows.
+- Expand features, including real-time order tracking and inventory management.
+- Optimize the platform for performance and scalability.
+
+---
+
+## Feedback
+
+We value your input! Feel free to open issues or contribute suggestions to improve the project.
+
