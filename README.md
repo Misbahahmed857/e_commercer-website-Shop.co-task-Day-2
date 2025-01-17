@@ -1,36 +1,33 @@
-# Marketplace Technical Foundation - [Ecommerce]
+Marketplace Technical Foundation - [Ecommerce]
+📌 Project Overview
 
+The Marketplace Builder is a web application built using Next.js and integrated with Sanity CMS for managing products and orders. This application allows users to browse products, add them to the cart, and complete purchases securely via Stripe. It also integrates with ShipEngine for generating shipping labels and tracking orders.
+🌟 Features
 
-## 📌 Project Overview  
-The **Marketplace Builder** is a web application built using **Next.js** and integrated with **Sanity CMS** for managing products and orders. This application allows users to browse products, add them to the cart, and complete purchases securely via **Stripe**. It also integrates with **ShipEngine** for generating shipping labels and tracking orders.
+    Product Listing Page: Display products available for purchase.
+    Cart Page: Allow users to add products to their cart and view the total.
+    Checkout Page: Complete the purchase securely using Stripe.
+    Payment Integration with Stripe: Secure payment processing for orders.
+    Shipping Label Generation & Order Tracking via ShipEngine: Generate shipping labels and track orders.
+    Product & Order Management via Sanity CMS: Easily manage products and orders.
 
----
+🏗️ System Architecture
+Frontend
 
-## 🌟 Features  
-- **Product Listing Page**: Display products available for purchase.
-- **Cart Page**: Allow users to add products to their cart and view the total.
-- **Checkout Page**: Complete the purchase securely using Stripe.
-- **Payment Integration with Stripe**: Secure payment processing for orders.
-- **Shipping Label Generation & Order Tracking via ShipEngine**: Generate shipping labels and track orders.
-- **Product & Order Management via Sanity CMS**: Easily manage products and orders.
+    Built with Next.js to render pages and fetch data from APIs.
 
----
+CMS
 
-## 🏗️ System Architecture  
+    Sanity CMS is used to manage product and order data.
 
-### Frontend  
-- Built with **Next.js** to render pages and fetch data from APIs.
+APIs
 
-### CMS  
-- **Sanity CMS** is used to manage product and order data.
+    Products API: Fetch product data from Sanity CMS.
+    Shipping API: Generate and track shipping labels using ShipEngine.
+    Payments API: Process payments securely via Stripe.
 
-### APIs  
-- **Products API**: Fetch product data from **Sanity CMS**.
-- **Shipping API**: Generate and track shipping labels using **ShipEngine**.
-- **Payments API**: Process payments securely via **Stripe**.
+Architecture Diagram
 
-### Architecture Diagram  
-```css
 [Frontend (Next.js)]
     |
 [Sanity CMS] --> [Product Data API]
@@ -117,4 +114,3 @@ export default {
     { name: "status", type: "string", title: "Order Status" }
   ]
 };
-
